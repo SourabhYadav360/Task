@@ -97,6 +97,14 @@ export const loginController = async (req, res) => {
             })
         }
 
+                if (!existedUser.isVerified) {
+            return res.status(401).json({
+                message: "Please verify your email first , ",
+                success: false
+            })
+        }
+
+
         let checkPass = await existedUser.comparePass(password)
         if (!checkPass) {
             return res.status(401).json({
